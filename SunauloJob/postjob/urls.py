@@ -9,4 +9,6 @@ urlpatterns = [
      path('data', view_saved_posted_data),
     path('data/edit/<int:ID>', update_post_form),
     path('data/edit/update/<int:ID>', update_post)
+    path('data/delete/<int:ID>',delete_post),
+    path('search',search_data)
 ]
