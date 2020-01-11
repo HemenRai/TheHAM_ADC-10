@@ -24,3 +24,19 @@ def save_posted_job(request):
         post_obj.save()
         return redirect ("/postjob/data")
 
+def delete_post(request, ID):
+    post_obj= Post.objects.get(id=ID)
+    post_obj.delete()
+    return redirect("/postjob/data")
+    
+
+def search_data(request):
+    search_term = ''
+    search_term= request.POST['search']
+    match = Post.objects.filter(Q(title__icontains=search_term) | Q(category__icontains=search_term) | Q(job_type__icontains=search_term))
+    context_variable = {
+        'posts':match
+    }
+    return render(request,'viewdata.html',context_variable)
+
+
