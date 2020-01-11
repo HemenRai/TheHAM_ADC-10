@@ -24,3 +24,29 @@ def save_posted_job(request):
         post_obj.save()
         return redirect ("/postjob/data")
 
+def view_saved_posted_data(request):
+    list_of_post = Post.objects.all()
+    print(list_of_post)
+    context_variable = {
+        'posts':list_of_post
+    }
+    return render(request,'viewdata.html',context_variable)
+
+def update_post_form(request,ID):
+    post_obj = Post.objects.get(id=ID)
+    print(post_obj)
+    context_variable= {
+        'post':post_obj
+    }
+    return render(request, 'updateform.html', context_variable)
+
+def update_post(request,ID):
+    post_obj= Post.objects.get(id=ID)
+    post_obj.title = request.POST['title']
+    post_obj.category = request.POST['category']
+    post_obj.job_type = request.POST['job_type']
+    post_obj.salary = request.POST['salary']
+    post_obj.description = request.POST['description']
+    post_obj.file = request.POST['file']
+    post_obj.save()
+    return redirect ("/postjob/data")   
